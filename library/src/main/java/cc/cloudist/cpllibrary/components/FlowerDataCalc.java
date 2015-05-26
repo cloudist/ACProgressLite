@@ -7,45 +7,44 @@ import java.util.List;
 
 public class FlowerDataCalc {
 
-    private double[] cosValues, sinValues;
+    private double[] mCosValues;
+    private double[] mSinValues;
 
-    public FlowerDataCalc(int lineCount) {
-        cosValues = new double[lineCount];
-        sinValues = new double[lineCount];
+    public FlowerDataCalc(int segmentCount) {
+        mCosValues = new double[segmentCount];
+        mSinValues = new double[segmentCount];
 
-        double angleUnit = 360d / lineCount;
-        for (int i = 0; i < lineCount; i++) {
-            double currentAngle = (angleUnit * i) * Math.PI / 180;
-            cosValues[i] = Math.cos(currentAngle);
-            sinValues[i] = Math.sin(currentAngle);
+        double angleUnit = Math.PI * 2.0 / segmentCount;
+        for (int i = 0; i < segmentCount; i++) {
+            double currentAngle = angleUnit * i;
+            mCosValues[i] = Math.cos(currentAngle);
+            mSinValues[i] = Math.sin(currentAngle);
         }
-
     }
 
-    public List<PetalCoordinate> getLineCoordinates(int rectSize, int outPadding, int inPadding, int lineCount) {
+    public List<PetalCoordinate> getSegmentsCoordinates(int rectSize, int outPadding, int inPadding, int segmentCount) {
 
-        List<PetalCoordinate> coordinates = new ArrayList<PetalCoordinate>(lineCount);
+        List<PetalCoordinate> coordinates = new ArrayList<>(segmentCount);
 
-        int center = rectSize / 2;
-        int outRadius = center - outPadding / 2;
-        int inRadius = inPadding / 2;
+        double center = rectSize / 2.0;
+        double outRadius = (rectSize - outPadding) / 2.0;
+        double inRadius = inPadding / 2.0;
 
-        for (int i = 0; i < lineCount; i++) {
-            double xOutOffset = outRadius * cosValues[i];
-            double yOutOffset = outRadius * sinValues[i];
+        for (int i = 0; i < segmentCount; i++) {
+            double xOutOffset = outRadius * mCosValues[i];
+            double yOutOffset = outRadius * mSinValues[i];
 
             int startX = (int) (center - xOutOffset);
             int startY = (int) (center + yOutOffset);
 
-            double xInOffset = inRadius * cosValues[i];
-            double yInOffset = inRadius * sinValues[i];
+            double xInOffset = inRadius * mCosValues[i];
+            double yInOffset = inRadius * mSinValues[i];
 
             int endX = (int) (center - xInOffset);
             int endY = (int) (center + yInOffset);
 
             PetalCoordinate coordinate = new PetalCoordinate(startX, startY, endX, endY);
             coordinates.add(coordinate);
-
         }
 
         return coordinates;
@@ -62,15 +61,15 @@ public class FlowerDataCalc {
         int fadeGreen = Color.green(fadeColor);
         int fadeBlue = Color.blue(fadeColor);
 
-        int redRange = fadeRed - themeRed;
-        int greenRange = fadeGreen - themeGreen;
-        int blueRange = fadeBlue - themeBlue;
+        double redDelta = (double) (fadeRed - themeRed) / (petalCount - 1);
+        double greenDelta = (double) (fadeGreen - themeGreen) / (petalCount - 1);
+        double blueDelta = (double) (fadeBlue - themeBlue) / (petalCount - 1);
 
         for (int i = 0; i < petalCount; i++) {
             int color = Color.argb(petalAlpha,
-                    (int) (themeRed + (redRange / (double) petalCount) * i),
-                    (int) (themeGreen + (greenRange / (double) petalCount) * i),
-                    (int) (themeBlue + (blueRange / (double) petalCount) * i));
+                    (int) (themeRed + redDelta * i),
+                    (int) (themeGreen + greenDelta * i),
+                    (int) (themeBlue + blueDelta * i));
             colors.add(color);
         }
 

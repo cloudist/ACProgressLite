@@ -55,7 +55,7 @@ public class CircleProgressFlower extends CircleProgressBase {
         petalPaint.setStrokeCap(Paint.Cap.ROUND);
 
         FlowerDataCalc calc = new FlowerDataCalc(builder.petalCount);
-        petalCoordinates = calc.getLineCoordinates(size, (int) (builder.borderPadding * size), (int) (builder.centerPadding * size), builder.petalCount);
+        petalCoordinates = calc.getSegmentsCoordinates(size, (int) (builder.borderPadding * size), (int) (builder.centerPadding * size), builder.petalCount);
         petalColors = calc.getLineColors(builder.themeColor, builder.fadeColor, builder.petalCount, (int) (builder.petalAlpha * 255));
     }
 
@@ -67,22 +67,22 @@ public class CircleProgressFlower extends CircleProgressBase {
         private Context context;
 
         private int petalCount = 12;
-        private float sizeRatio = 0.2f;
+        private float sizeRatio = 0.25f;
 
-        private int themeColor = Color.RED;
-        private int fadeColor = Color.WHITE;
+        private int themeColor = Color.WHITE;
+        private int fadeColor = Color.DKGRAY;
         private int bgColor = Color.BLACK;
 
         private float petalAlpha = 0.5f;
         private float bgAlpha = 0.5f;
 
         private int direction = DIRECT_CLOCKWISE;
-        private float speed = 6.67f;
+        private float speed = 9.0f;
 
-        private float borderPadding = 0.4f;
-        private float centerPadding = 0.4f;
+        private float borderPadding = 0.55f;
+        private float centerPadding = 0.27f;
 
-        private int petalThickness = 8;
+        private int petalThickness = 9;
 
         private float bgCornerRadius = 20f;
 
@@ -168,11 +168,10 @@ public class CircleProgressFlower extends CircleProgressBase {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawRoundRect(bgRectF, bgCornerRadius, bgCornerRadius, bgPaint);
-        for (PetalCoordinate coordinate : petalCoordinates) {
-            int index = petalCoordinates.indexOf(coordinate) - focusPetalIndex;
-            if (index < 0) {
-                index = petalCount + index;
-            }
+        PetalCoordinate coordinate;
+        for (int i = 0; i < petalCoordinates.size(); i++) {
+            coordinate = petalCoordinates.get(i);
+            int index = (focusPetalIndex + i) % petalCoordinates.size();
             petalPaint.setColor(petalColors.get(index));
             canvas.drawLine(coordinate.getStartX(), coordinate.getStartY(), coordinate.getEndX(), coordinate.getEndY(), petalPaint);
         }
@@ -188,9 +187,9 @@ public class CircleProgressFlower extends CircleProgressBase {
             public void run() {
                 int result = (int) (spinCount % petalCount);
                 if (direction == Builder.DIRECT_CLOCKWISE) {
-                    focusPetalIndex = petalCount - 1 - result;
-                } else {
                     focusPetalIndex = result;
+                } else {
+                    focusPetalIndex = petalCount - 1 - result;
                 }
                 handler.sendEmptyMessage(0);
                 spinCount++;
@@ -213,6 +212,5 @@ public class CircleProgressFlower extends CircleProgressBase {
         petalCoordinates = null;
         petalColors = null;
     }
-
 
 }

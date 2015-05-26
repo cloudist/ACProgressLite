@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -75,7 +76,7 @@ public abstract class CircleProgressBase extends View {
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
+    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             windowManager.removeView(CircleProgressBase.this);
             return true;
@@ -85,24 +86,22 @@ public abstract class CircleProgressBase extends View {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        int[] l = new int[2];
-        getLocationInWindow(l);
-        int endX = l[0] + getWidth();
-        int endY = l[1] + getHeight();
+    public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
+        if (cancelable) {
+            int[] location = new int[2];
+            getLocationInWindow(location);
+            int endX = location[0] + getWidth();
+            int endY = location[1] + getHeight();
 
-        float x = event.getX();
-        float y = event.getY();
+            float x = event.getX();
+            float y = event.getY();
 
-        if (x > l[0] && x < endX && y > l[1] && y < endY) {
-//            return super.dispatchTouchEvent(event);
-            return true;
-        } else if (cancelable) {
-            windowManager.removeView(CircleProgressBase.this);
+            if (x < location[0] || x > endX || y < location[1] || y > endY) {
+                windowManager.removeView(CircleProgressBase.this);
+            }
             return true;
         } else {
             return true;
-//            return super.dispatchTouchEvent(event);
         }
     }
 
@@ -115,20 +114,19 @@ public abstract class CircleProgressBase extends View {
     }
 
     private static class UpdateHandler extends Handler {
-        WeakReference<CircleProgressBase> reference;
+        WeakReference<CircleProgressBase> mReference;
 
         public UpdateHandler(CircleProgressBase base) {
-            reference = new WeakReference<CircleProgressBase>(base);
+            mReference = new WeakReference<>(base);
         }
 
         @Override
         public void handleMessage(Message message) {
-            CircleProgressBase base = reference.get();
+            CircleProgressBase base = mReference.get();
             if (base != null) {
                 base.invalidate();
             }
         }
     }
-
 
 }
