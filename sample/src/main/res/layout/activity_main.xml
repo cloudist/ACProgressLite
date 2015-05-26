@@ -1,12 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#1d315d">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"/>
+
 
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -18,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.5"
-            android:background="#66ccff"/>
+            android:background="#eeeeee"/>
 
         <TextView
             android:layout_width="wrap_content"

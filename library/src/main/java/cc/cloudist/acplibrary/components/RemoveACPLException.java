@@ -1,8 +1,8 @@
 package cc.cloudist.acplibrary.components;
 
-public class RemoveCPLException extends RuntimeException {
+public class RemoveACPLException extends RuntimeException {
 
-    public RemoveCPLException() {
+    public RemoveACPLException() {
         super("CPL not attached to window manager, is it already dismissed?");
     }
 

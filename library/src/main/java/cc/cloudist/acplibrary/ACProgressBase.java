@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 import java.lang.ref.WeakReference;
 
-import cc.cloudist.acplibrary.components.RemoveCPLException;
+import cc.cloudist.acplibrary.components.RemoveACPLException;
 
 public abstract class ACProgressBase extends View {
 
@@ -109,7 +109,7 @@ public abstract class ACProgressBase extends View {
         try {
             mWindowManager.removeView(ACProgressBase.this);
         } catch (IllegalArgumentException e) {
-            throw new RemoveCPLException();
+            throw new RemoveACPLException();
         }
     }
 

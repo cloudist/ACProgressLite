@@ -36,7 +36,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name 'Android CircleProgerss Lite Widget'    //项目描述
+                name 'Android CircleProgerss Lite Widget'
                 url siteUrl
                 // Set your license
                 licenses { // 许可类型，后面也有
@@ -91,10 +91,10 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "BounceProgressBar"    //发布到JCenter上的项目名字
+        name = "ACProgressLite"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
+        licenses = ["MIT"]
         publish = true
     }
 }
