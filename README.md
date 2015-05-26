@@ -21,6 +21,10 @@ Suggestions and pull requests are welcomed. :-)
 ## Sample And Usage
 ---
 
+![Flower](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl1.gif)
+![Pie](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl2.gif)
+![Custom](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl3.gif)
+
 ACProgressLite needs to use **Builder** to create instances.
 
 * "Flower"
@@ -32,11 +36,11 @@ ACProgressLite needs to use **Builder** to create instances.
 `new ACProgressPie.Builder(context).build().show();`
 * Custom
 
-
-    ACProgressCustom.Builder builder = new ACProgressCustom.Builder(context);
-    builder.useImages(?,?,?);
-    builder.build().show();
-
+```
+ACProgressCustom.Builder builder = new ACProgressCustom.Builder(context);
+builder.useImages(?,?,?);
+builder.build().show();
+```
 
 ### **Some frequently-used configurations：**
 <br/>
