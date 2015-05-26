@@ -1,12 +1,12 @@
-package cc.cloudist.cplsample;
+package cc.cloudist.acpsample;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import cc.cloudist.cpllibrary.CircleProgressCustom;
-import cc.cloudist.cpllibrary.CircleProgressFlower;
-import cc.cloudist.cpllibrary.CircleProgressPie;
+import cc.cloudist.acplibrary.ACProgressCustom;
+import cc.cloudist.acplibrary.ACProgressFlower;
+import cc.cloudist.acplibrary.ACProgressPie;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -25,31 +25,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.flower_cancelable: {
-                CircleProgressFlower.Builder builder = new CircleProgressFlower.Builder(this);
-                CircleProgressFlower flower = builder.build();
+                ACProgressFlower.Builder builder = new ACProgressFlower.Builder(this);
+                ACProgressFlower flower = builder.build();
                 flower.setCancelable(true);
                 flower.show();
             }
             break;
             case R.id.flower_fixed: {
-                CircleProgressFlower.Builder builder = new CircleProgressFlower.Builder(this);
-                CircleProgressFlower flower = builder.build();
+                ACProgressFlower.Builder builder = new ACProgressFlower.Builder(this);
+                ACProgressFlower flower = builder.build();
                 flower.setCancelable(false);
                 flower.show();
             }
             break;
             case R.id.pie: {
-                CircleProgressPie.Builder builder = new CircleProgressPie.Builder(this);
-                CircleProgressPie pie = builder.build();
+                ACProgressPie.Builder builder = new ACProgressPie.Builder(this);
+                ACProgressPie pie = builder.build();
                 pie.setCancelable(true);
                 pie.show();
             }
             break;
             case R.id.custom: {
-                CircleProgressCustom.Builder builder = new CircleProgressCustom.Builder(this);
+                ACProgressCustom.Builder builder = new ACProgressCustom.Builder(this);
                 builder.useImages(R.drawable.refresh_0, R.drawable.refresh_1, R.drawable.refresh_2, R.drawable.refresh_3, R.drawable.refresh_4, R.drawable.refresh_5);
                 builder.sizeRatio(0.15f);
-                CircleProgressCustom custom = builder.build();
+                ACProgressCustom custom = builder.build();
                 custom.setCancelable(true);
                 custom.show();
             }

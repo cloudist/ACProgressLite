@@ -1,7 +1,7 @@
-package cc.cloudist.cpllibrary.components;
+package cc.cloudist.acplibrary.components;
 
 /**
- * coordinate to draw a line in flower
+ * coordinate to draw a petal in flower
  */
 public class PetalCoordinate {
 

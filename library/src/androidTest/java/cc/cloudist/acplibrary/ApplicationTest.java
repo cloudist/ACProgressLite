@@ -1,4 +1,4 @@
-package cc.cloudist.cpllibrary;
+package cc.cloudist.acplibrary;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

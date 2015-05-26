@@ -1,4 +1,4 @@
-package cc.cloudist.cpllibrary;
+package cc.cloudist.acplibrary;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -16,27 +16,27 @@ import android.view.WindowManager;
 
 import java.lang.ref.WeakReference;
 
-import cc.cloudist.cpllibrary.components.RemoveCPLException;
+import cc.cloudist.acplibrary.components.RemoveCPLException;
 
-public abstract class CircleProgressBase extends View {
+public abstract class ACProgressBase extends View {
 
-    protected WindowManager windowManager;
+    protected WindowManager mWindowManager;
 
-    protected int size;
+    protected int mSize;
 
-    protected Handler handler;
+    protected Handler mHandler;
 
-    private float dimAmount = 0.3f;
+    private float mDimAmount = 0.3f;
 
-    private boolean cancelable = false;
+    private boolean mCancelable = false;
 
-    public CircleProgressBase(Context context, float sizeRatio) {
+    public ACProgressBase(Context context, float sizeRatio) {
         super(context);
 
-        handler = new UpdateHandler(this);
+        mHandler = new UpdateHandler(this);
 
-        windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
+        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = mWindowManager.getDefaultDisplay();
         int screenHeight;
         int screenWidth;
         if (Build.VERSION.SDK_INT >= 13) {
@@ -49,18 +49,18 @@ public abstract class CircleProgressBase extends View {
             screenHeight = display.getHeight();
         }
         if (screenHeight > screenWidth) {
-            size = (int) (screenWidth * sizeRatio);
+            mSize = (int) (screenWidth * sizeRatio);
         } else {
-            size = (int) (screenHeight * sizeRatio);
+            mSize = (int) (screenHeight * sizeRatio);
         }
     }
 
     public void setBackgroundAlpha(float alpha) {
-        this.dimAmount = alpha;
+        this.mDimAmount = alpha;
     }
 
-    public void setCancelable(boolean cancelable) {
-        this.cancelable = cancelable;
+    public void setCancelable(boolean mCancelable) {
+        this.mCancelable = mCancelable;
     }
 
     public void show() {
@@ -70,15 +70,15 @@ public abstract class CircleProgressBase extends View {
                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_DIM_BEHIND,
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.CENTER;
-        params.dimAmount = dimAmount;
+        params.dimAmount = mDimAmount;
 
-        windowManager.addView(CircleProgressBase.this, params);
+        mWindowManager.addView(ACProgressBase.this, params);
     }
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            windowManager.removeView(CircleProgressBase.this);
+            mWindowManager.removeView(ACProgressBase.this);
             return true;
         } else {
             return super.dispatchKeyEvent(event);
@@ -87,7 +87,7 @@ public abstract class CircleProgressBase extends View {
 
     @Override
     public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
-        if (cancelable) {
+        if (mCancelable) {
             int[] location = new int[2];
             getLocationInWindow(location);
             int endX = location[0] + getWidth();
@@ -97,7 +97,7 @@ public abstract class CircleProgressBase extends View {
             float y = event.getY();
 
             if (x < location[0] || x > endX || y < location[1] || y > endY) {
-                windowManager.removeView(CircleProgressBase.this);
+                mWindowManager.removeView(ACProgressBase.this);
             }
             return true;
         } else {
@@ -107,22 +107,22 @@ public abstract class CircleProgressBase extends View {
 
     public void dismiss() {
         try {
-            windowManager.removeView(CircleProgressBase.this);
+            mWindowManager.removeView(ACProgressBase.this);
         } catch (IllegalArgumentException e) {
             throw new RemoveCPLException();
         }
     }
 
     private static class UpdateHandler extends Handler {
-        WeakReference<CircleProgressBase> mReference;
+        WeakReference<ACProgressBase> mReference;
 
-        public UpdateHandler(CircleProgressBase base) {
+        public UpdateHandler(ACProgressBase base) {
             mReference = new WeakReference<>(base);
         }
 
         @Override
         public void handleMessage(Message message) {
-            CircleProgressBase base = mReference.get();
+            ACProgressBase base = mReference.get();
             if (base != null) {
                 base.invalidate();
             }

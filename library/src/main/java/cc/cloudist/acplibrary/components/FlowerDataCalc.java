@@ -1,4 +1,4 @@
-package cc.cloudist.cpllibrary.components;
+package cc.cloudist.acplibrary.components;
 
 import android.graphics.Color;
 
@@ -50,8 +50,8 @@ public class FlowerDataCalc {
         return coordinates;
     }
 
-    public List<Integer> getLineColors(int themeColor, int fadeColor, int petalCount, int petalAlpha) {
-        List<Integer> colors = new ArrayList<>(petalCount);
+    public int[] getSegmentsColors(int themeColor, int fadeColor, int petalCount, int petalAlpha) {
+        int[] colors = new int[petalCount];
 
         int themeRed = Color.red(themeColor);
         int themeGreen = Color.green(themeColor);
@@ -70,7 +70,7 @@ public class FlowerDataCalc {
                     (int) (themeRed + redDelta * i),
                     (int) (themeGreen + greenDelta * i),
                     (int) (themeBlue + blueDelta * i));
-            colors.add(color);
+            colors[i] = color;
         }
 
         return colors;

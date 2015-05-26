@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="15dp"
-            android:text="CircleProgressLite Demo"
+            android:text="ACProgressLite Demo"
             android:textSize="16sp"/>
 
 
