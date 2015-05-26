@@ -8,15 +8,17 @@ support API_INT >= 9
 
 Suggestions and pull requests are welcomed. :-)
 
+[中文版](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)
+
 ## Version
 ---
 * 1.0.0
 
 ## Installation
 ---
-* gradle: `complie"xxx.xxx"`
+* gradle: `compile "xxx.xxx"` (Not available now...)
 
-* import moudle:"library" to your project
+* import module: "library" to your project
 
 ## Sample And Usage
 ---
@@ -43,7 +45,6 @@ builder.build().show();
 ```
 
 ### **Some frequently-used configurations：**
-<br/>
 #### *General*
 * **sizeRatio**: The Size Ratio of the background, length of the smaller edge of screen is 1. This is a float value which small than 1. (Looks like a percentage value, like 0.5f)
 * **speed**: The number of the frames per second.
@@ -68,7 +69,6 @@ builder.build().show();
 * **useFiles**: Use local image files as the image source, parameters are files' paths.
 
 ### **Notice**
-<br/>
 * Do not use `useImages` and `useFiles' at the same time, or only the last configuration is avaliable.
 * All configurations works fine by default. If you want to change the default, please tweak different configuration carefully to make the progress looks perfectly.
 * Do not call `dismiss()` when the progress is not on the screen, otherwise you may get a `RemoveACPLException`.
