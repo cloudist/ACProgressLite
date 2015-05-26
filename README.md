@@ -1,10 +1,10 @@
-#ACProgressLite
+# ACProgressLite
 ---
 A concise Android progressBar library - "Android Cloudist Progress Lite"
 
 easy to use and config
 
-support API_INT >= 8
+support API_INT >= 9
 
 Suggestions and pull requests are welcomed. :-)
 
@@ -25,22 +25,18 @@ ACProgressLite needs to use **Builder** to create instances.
 
 * "Flower"
 
-
-    new ACProgressFlower.Builder(context).build().show();
-
+`new ACProgressFlower.Builder(context).build().show();`
 
 * "Pie"
 
-
-    new ACProgressPie.Builder(context).build().show();
-
-
+`new ACProgressPie.Builder(context).build().show();`
 * Custom
 
 
     ACProgressCustom.Builder builder = new ACProgressCustom.Builder(context);
     builder.useImages(?,?,?);
     builder.build().show();
+
 
 ### **Some frequently-used configurations：**
 <br/>
