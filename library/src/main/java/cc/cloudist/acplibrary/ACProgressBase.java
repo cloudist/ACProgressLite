@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -15,8 +16,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import java.lang.ref.WeakReference;
-
-import cc.cloudist.acplibrary.components.RemoveACPLException;
 
 public abstract class ACProgressBase extends View {
 
@@ -97,7 +96,7 @@ public abstract class ACProgressBase extends View {
             float y = event.getY();
 
             if (x < location[0] || x > endX || y < location[1] || y > endY) {
-                mWindowManager.removeView(ACProgressBase.this);
+                dismiss();
             }
             return true;
         } else {
@@ -106,11 +105,16 @@ public abstract class ACProgressBase extends View {
     }
 
     public void dismiss() {
-        try {
-            mWindowManager.removeView(ACProgressBase.this);
-        } catch (IllegalArgumentException e) {
-            throw new RemoveACPLException();
-        }
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mWindowManager.removeView(ACProgressBase.this);
+                } catch (IllegalArgumentException e) {
+                    Log.e("ACProgressLite", "avoid call dismiss() when the view is not attached to window");
+                }
+            }
+        });
     }
 
     private static class UpdateHandler extends Handler {
