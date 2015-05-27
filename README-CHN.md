@@ -16,11 +16,11 @@
 
 ## 版本
 ---
-* 1.1.0
+* 1.1.1
 
 ## 安装
 ---
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.0'`
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.1'`
 
 * 直接将 module: "library" 引入工程
 

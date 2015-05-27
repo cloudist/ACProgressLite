@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.flower_fixed).setOnClickListener(this);
         findViewById(R.id.pie).setOnClickListener(this);
         findViewById(R.id.custom).setOnClickListener(this);
+
     }
 
     @Override
