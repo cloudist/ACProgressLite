@@ -6,17 +6,19 @@ easy to use and config
 
 support API_INT >= 9
 
+[Sample APK](https://github.com/Cloudist/ACProgressLite/raw/master/sample.apk)
+
 Suggestions and pull requests are welcomed. :-)
 
 [中文版](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)
 
 ## Version
 ---
-* 1.0.0
+* 1.1.0
 
 ## Installation
 ---
-* gradle: compile 'cc.cloudist.acplibrary:library:1.1.0'
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.0'`
 
 * import module: "library" to your project
 

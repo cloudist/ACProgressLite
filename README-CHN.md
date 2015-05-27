@@ -6,6 +6,8 @@
 
 支持API版本： API_INT >= 9
 
+[演示APK](https://github.com/Cloudist/ACProgressLite/raw/master/sample.apk)
+
 欢迎讨论 :-)
 
 [English Version](https://github.com/Cloudist/ACProgressLite/blob/master/README.md)
@@ -16,7 +18,7 @@
 
 ## 安装
 ---
-* gradle: compile 'cc.cloudist.acplibrary:library:1.1.0'
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.0'`
 
 * 直接将 module: "library" 引入工程
 
