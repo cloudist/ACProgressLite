@@ -14,11 +14,11 @@ Suggestions and pull requests are welcomed. :-)
 
 ## Version
 ---
-* 1.1.1
+* 1.1.3
 
 ## Installation
 ---
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.1'`
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.3'`
 
 * import module: "library" to your project
 
@@ -75,7 +75,7 @@ builder.build().show();
 * If you use version before 1.1.0 (1.1.0 is not included), you may get a gradle error, you can add `tools:ignore="label"` under `application` label in Manifest to solve it.
 * Do not use `useImages` and `useFiles' at the same time, or only the last configuration is avaliable.
 * All configurations works fine by default. If you want to change the default, please tweak different configuration carefully to make the progress looks perfectly.
-* Do not call `dismiss()` when the progress is not on the screen, otherwise you may get a `RemoveACPLException`.
+* Calling `dismiss()` when the progress is not on the screen is not a good practice.
 
 
 ## License

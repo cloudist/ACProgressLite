@@ -19,7 +19,7 @@ public class ACProgressPie extends ACProgressBase {
     private float mBackgroundCornerRadius;
     private float mRingBorderPadding;
 
-    private long mSpinCount = 0;
+    private int mSpinCount = 0;
     private int mCurrentFocusIndex = 0;
 
     private int mSlides = 20;
@@ -170,7 +170,7 @@ public class ACProgressPie extends ACProgressBase {
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        mCurrentFocusIndex = (int) (mSpinCount % mSlides);
+                        mCurrentFocusIndex = mSpinCount % mSlides;
                         mHandler.sendEmptyMessage(0);
                         if (mCurrentFocusIndex == 0) {
                             mSpinCount = 1;

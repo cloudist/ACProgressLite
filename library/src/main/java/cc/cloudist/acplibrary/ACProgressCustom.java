@@ -22,7 +22,7 @@ public class ACProgressCustom extends ACProgressBase {
     private float mSpeed;
 
     private int mImageCount = 0;
-    private long mSpinCount = 0;
+    private int mSpinCount = 0;
     private int mCurrentIndex = 0;
 
     public ACProgressCustom(Builder builder) {
@@ -118,10 +118,14 @@ public class ACProgressCustom extends ACProgressBase {
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        int result = (int) (mSpinCount % mImageCount);
+                        int result = mSpinCount % mImageCount;
                         mCurrentIndex = mImageCount - 1 - result;
                         mHandler.sendEmptyMessage(0);
-                        mSpinCount++;
+                        if (result == 0) {
+                            mSpinCount = 1;
+                        } else {
+                            mSpinCount++;
+                        }
                     }
                 }, delay, delay);
             }

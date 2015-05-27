@@ -185,7 +185,7 @@ public class ACProgressFlower extends ACProgressBase {
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        int result = (int) (mSpinCount % mPetalCount);
+                        int result = mSpinCount % mPetalCount;
                         if (mDirection == Builder.DIRECT_CLOCKWISE) {
                             mFocusPetalIndex = result;
                         } else {
@@ -201,26 +201,6 @@ public class ACProgressFlower extends ACProgressBase {
                 }, delay, delay);
             }
         });
-//        super.show();
-//        long delay = (long) (1000 / mSpeed);
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                int result = (int) (mSpinCount % mPetalCount);
-//                if (mDirection == Builder.DIRECT_CLOCKWISE) {
-//                    mFocusPetalIndex = result;
-//                } else {
-//                    mFocusPetalIndex = mPetalCount - 1 - result;
-//                }
-//                mHandler.sendEmptyMessage(0);
-//                if (result == 0) {
-//                    mSpinCount = 1;
-//                } else {
-//                    mSpinCount++;
-//                }
-//            }
-//        }, delay, delay);
     }
 
     @Override

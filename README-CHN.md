@@ -16,11 +16,11 @@
 
 ## 版本
 ---
-* 1.1.1
+* 1.1.3
 
 ## 安装
 ---
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.1'`
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.3'`
 
 * 直接将 module: "library" 引入工程
 
@@ -77,7 +77,7 @@ builder.build().show();
 * 如果使用1.1.0以前的版本 (不含1.1.0), 如果存在 gradle 错误, 可以在 Manifest 的 `application` 下增加 `tools:ignore="label`"解决
 * 不要同时使用 `useImages` 与 `useFiles`, 否则只有最后一次设置是有效的.
 * 默认的配置在多数情况下表现良好. 如果需要自定义样式, 请调节各个配置以达到最佳的显示效果.
-* 不要在屏幕上没有显示 ACProgressLite 时调用 `dismiss()` , 否则会抛出`RemoveACPLException` 异常.
+* 避免在屏幕上没有显示 ACProgressLite 时调用 `dismiss()`.
 
 
 ## 许可
