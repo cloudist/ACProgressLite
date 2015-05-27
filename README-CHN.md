@@ -71,7 +71,8 @@ builder.build().show();
 * **useFiles**: 使用本地文件作为图片源, 参数是文件路径.
 
 ### **注意**
-* 如果使用1.1.0以前的版本 (不含1.1.0), 如果存在 gradle 错误, 可以在 Manifest 的 application 下增加 tools:ignore="label"解决
+* 在提issue之前, 可以尝试 **Clean** 下工程.
+* 如果使用1.1.0以前的版本 (不含1.1.0), 如果存在 gradle 错误, 可以在 Manifest 的 `application` 下增加 `tools:ignore="label`"解决
 * 不要同时使用 `useImages` 与 `useFiles', 否则只有最后一次设置是有效的.
 * 默认的配置在多数情况下表现良好. 如果需要自定义样式, 请调节各个配置以达到最佳的显示效果.
 * 不要在屏幕上没有显示 ACProgressLite 时调用 `dismiss()` , 否则会抛出`RemoveACPLException` 异常.
