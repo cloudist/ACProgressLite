@@ -1,6 +1,6 @@
 # ACProgressLite
 ---
-A concise Android progressBar library - "Android Cloudist Progress Lite"
+A concise Android progress wheel and indicator library - "Android Cloudist Progress Lite"
 
 easy to use and config
 
@@ -71,7 +71,7 @@ builder.build().show();
 * **useFiles**: Use local image files as the image source, parameters are files' paths.
 
 ### **Notice**
-* Before submitting any issue, try **Clean**.
+* Before submitting any issue, try **Clean** the project.
 * If you use version before 1.1.0 (1.1.0 is not included), you may get a gradle error, you can add `tools:ignore="label"` under `application` label in Manifest to solve it.
 * Do not use `useImages` and `useFiles' at the same time, or only the last configuration is avaliable.
 * All configurations works fine by default. If you want to change the default, please tweak different configuration carefully to make the progress looks perfectly.
