@@ -76,6 +76,7 @@ builder.build().show();
 * Do not use `useImages` and `useFiles' at the same time, or only the last configuration is avaliable.
 * All configurations works fine by default. If you want to change the default, please tweak different configuration carefully to make the progress looks perfectly.
 * Calling `dismiss()` when the progress is not on the screen is not a good practice.
+* Do not call an object's `show()` after `dismiss()`, you should always create a new instance before calling `show()`, or you'll get a `NullPointerException`. *This will be improved in future versions*.
 
 
 ## License
