@@ -1,6 +1,6 @@
 # ACProgressLite
----
-一个简洁易用的 Android progress wheel 与 indicator library  
+
+一个简洁易用、类似 iOS 的 Android progress wheel 与 indicator library
 "Android Cloudist Progress Lite"  
 
 
@@ -15,12 +15,12 @@
 [English Version](https://github.com/Cloudist/ACProgressLite/blob/master/README.md)
 
 ## 版本
----
-* 1.1.3
+
+* 1.1.4
 
 ## 安装
----
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.3'`
+
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.4'`
 
 * 直接将 module: "library" 引入工程
 
@@ -40,6 +40,7 @@
 * "圆饼"类型
 
 `new ACProgressPie.Builder(context).build().show();`
+
 * 自定义类型
 
 ```
@@ -62,13 +63,13 @@ builder.build().show();
 * **borderPadding**：花瓣外侧与背景边缘的距离 / 背景的边长
 * **centerPadding**：花瓣内侧与背景中心点的距离 / 背景的边长
 
-#### *"圆饼类型"*
+#### *"圆饼"类型*
 * **ringColor**: 圆环的颜色
 * **pieColor**: 圆饼的颜色
 * **ringBorderPadding**: 圆环与背景边缘的距离 / 背景的边长
 * **pieRingDistance**: 圆环与圆饼的距离 / 背景的边长
 
-#### *自定义*
+#### *自定义类型*
 * **useImages**: 使用 drawable 资源作为图片源, 参数是资源id.
 * **useFiles**: 使用本地文件作为图片源, 参数是文件路径.
 
@@ -82,5 +83,5 @@ builder.build().show();
 
 
 ## 许可
----
+
 * [MIT License](http://mit-license.org/)

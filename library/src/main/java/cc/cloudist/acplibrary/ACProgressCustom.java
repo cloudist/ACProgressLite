@@ -109,27 +109,22 @@ public class ACProgressCustom extends ACProgressBase {
 
     @Override
     public void show() {
-        this.post(new Runnable() {
+        ACProgressCustom.super.show();
+        long delay = (long) (1000 / mSpeed);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                ACProgressCustom.super.show();
-                long delay = (long) (1000 / mSpeed);
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        int result = mSpinCount % mImageCount;
-                        mCurrentIndex = mImageCount - 1 - result;
-                        mHandler.sendEmptyMessage(0);
-                        if (result == 0) {
-                            mSpinCount = 1;
-                        } else {
-                            mSpinCount++;
-                        }
-                    }
-                }, delay, delay);
+                int result = mSpinCount % mImageCount;
+                mCurrentIndex = mImageCount - 1 - result;
+                mHandler.sendEmptyMessage(0);
+                if (result == 0) {
+                    mSpinCount = 1;
+                } else {
+                    mSpinCount++;
+                }
             }
-        });
+        }, delay, delay);
     }
 
     @Override

@@ -71,7 +71,9 @@ public abstract class ACProgressBase extends View {
         params.gravity = Gravity.CENTER;
         params.dimAmount = mDimAmount;
 
-        mWindowManager.addView(ACProgressBase.this, params);
+        if (mWindowManager != null) {
+            mWindowManager.addView(ACProgressBase.this, params);
+        }
     }
 
     @Override

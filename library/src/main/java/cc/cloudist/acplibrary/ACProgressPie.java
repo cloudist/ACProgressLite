@@ -161,26 +161,21 @@ public class ACProgressPie extends ACProgressBase {
 
     @Override
     public void show() {
-        this.post(new Runnable() {
+        ACProgressPie.super.show();
+        long delay = (long) (1000 / mSpeed);
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                ACProgressPie.super.show();
-                long delay = (long) (1000 / mSpeed);
-                final Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        mCurrentFocusIndex = mSpinCount % mSlides;
-                        mHandler.sendEmptyMessage(0);
-                        if (mCurrentFocusIndex == 0) {
-                            mSpinCount = 1;
-                        } else {
-                            mSpinCount++;
-                        }
-                    }
-                }, delay, delay);
+                mCurrentFocusIndex = mSpinCount % mSlides;
+                mHandler.sendEmptyMessage(0);
+                if (mCurrentFocusIndex == 0) {
+                    mSpinCount = 1;
+                } else {
+                    mSpinCount++;
+                }
             }
-        });
+        }, delay, delay);
     }
 
     @Override

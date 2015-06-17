@@ -1,6 +1,6 @@
 # ACProgressLite
----
-A concise Android progress wheel and indicator library - "Android Cloudist Progress Lite"
+
+A concise "iOS like" Android progress wheel and indicator library - "Android Cloudist Progress Lite"
 
 easy to use and config
 
@@ -13,17 +13,17 @@ Suggestions and pull requests are welcomed. :-)
 [中文版](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)
 
 ## Version
----
-* 1.1.3
+
+* 1.1.4
 
 ## Installation
----
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.3'`
+
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.4'`
 
 * import module: "library" to your project
 
 ## Sample And Usage
----
+
 
 ![Flower](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl1.gif)
 ![Pie](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl2.gif)
@@ -80,5 +80,5 @@ builder.build().show();
 
 
 ## License
----
+
 * [MIT License](http://mit-license.org/)
