@@ -63,7 +63,7 @@ public abstract class ACProgressBase extends View {
     }
 
     public void show() {
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG,
                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_DIM_BEHIND,
@@ -72,7 +72,20 @@ public abstract class ACProgressBase extends View {
         params.dimAmount = mDimAmount;
 
         if (mWindowManager != null) {
-            mWindowManager.addView(ACProgressBase.this, params);
+            try {
+                mWindowManager.addView(ACProgressBase.this, params);
+            } catch (Exception e) {
+                try {
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mWindowManager.addView(ACProgressBase.this, params);
+                        }
+                    });
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
         }
     }
 
