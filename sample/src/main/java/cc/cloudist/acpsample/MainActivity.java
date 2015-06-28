@@ -1,9 +1,11 @@
 package cc.cloudist.acpsample;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressCustom;
 import cc.cloudist.acplibrary.ACProgressFlower;
 import cc.cloudist.acplibrary.ACProgressPie;
@@ -15,44 +17,54 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.flower_cancelable).setOnClickListener(this);
-        findViewById(R.id.flower_fixed).setOnClickListener(this);
-        findViewById(R.id.pie).setOnClickListener(this);
-        findViewById(R.id.custom).setOnClickListener(this);
+        findViewById(R.id.button_1).setOnClickListener(this);
+        findViewById(R.id.button_2).setOnClickListener(this);
+        findViewById(R.id.button_3).setOnClickListener(this);
+        findViewById(R.id.button_4).setOnClickListener(this);
+        findViewById(R.id.button_5).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.flower_cancelable: {
-                ACProgressFlower.Builder builder = new ACProgressFlower.Builder(this);
-                ACProgressFlower flower = builder.build();
-                flower.setCancelable(true);
-                flower.show();
+            case R.id.button_1: {
+                ACProgressFlower dialog = new ACProgressFlower.Builder(this)
+                        .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                        .themeColor(Color.WHITE)
+                        .fadeColor(Color.DKGRAY).build();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
             }
             break;
-            case R.id.flower_fixed: {
-                ACProgressFlower.Builder builder = new ACProgressFlower.Builder(this);
-                ACProgressFlower flower = builder.build();
-                flower.setCancelable(false);
-                flower.show();
+            case R.id.button_2: {
+                ACProgressFlower dialog = new ACProgressFlower.Builder(this)
+                        .direction(ACProgressConstant.DIRECT_ANTI_CLOCKWISE)
+                        .themeColor(Color.GREEN)
+                        .fadeColor(Color.RED).build();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
             }
             break;
-            case R.id.pie: {
-                ACProgressPie.Builder builder = new ACProgressPie.Builder(this);
-                ACProgressPie pie = builder.build();
-                pie.setCancelable(true);
-                pie.show();
+            case R.id.button_3: {
+                ACProgressFlower dialog = new ACProgressFlower.Builder(this)
+                        .text("Text is here")
+                        .build();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
             }
             break;
-            case R.id.custom: {
-                ACProgressCustom.Builder builder = new ACProgressCustom.Builder(this);
-                builder.useImages(R.drawable.refresh_0, R.drawable.refresh_1, R.drawable.refresh_2, R.drawable.refresh_3, R.drawable.refresh_4, R.drawable.refresh_5);
-                builder.sizeRatio(0.15f);
-                ACProgressCustom custom = builder.build();
-                custom.setCancelable(true);
-                custom.show();
+            case R.id.button_4: {
+                ACProgressPie dialog = new ACProgressPie.Builder(this).build();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
+            }
+            break;
+            case R.id.button_5: {
+                ACProgressCustom dialog = new ACProgressCustom.Builder(this)
+                        .useImages(R.drawable.p0, R.drawable.p1, R.drawable.p2, R.drawable.p3).build();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
             }
             break;
         }

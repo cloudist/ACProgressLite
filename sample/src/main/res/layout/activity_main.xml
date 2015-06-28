@@ -1,17 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#1d315d">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="3dp"
         android:scaleType="fitXY"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo" />
 
 
     <RelativeLayout
@@ -24,15 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.5"
-            android:background="#eeeeee"/>
+            android:background="#eeeeee" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="15dp"
-            android:text="ACProgressLite Demo"
-            android:textSize="16sp"/>
+            android:text="ACProgressLite Sample"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
@@ -51,45 +57,54 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/flower_cancelable"
+                android:id="@+id/button_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:alpha="0.6"
-                android:text="Flower Cancelable"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_marginTop="30dp"
+                android:alpha="0.8"
+                android:singleLine="true"
+                android:text="[Flower]  clockwise  (white > gray)"
+                android:textSize="15sp" />
 
             <Button
-                android:id="@+id/flower_fixed"
+                android:id="@+id/button_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:alpha="0.6"
-                android:text="Flower Fixed"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_marginTop="20dp"
+                android:alpha="0.8"
+                android:singleLine="true"
+                android:text="[Flower]  anticlockwise  (blue > red)"
+                android:textSize="15sp" />
 
             <Button
-                android:id="@+id/pie"
+                android:id="@+id/button_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:alpha="0.6"
-                android:text="Pie"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_marginTop="20dp"
+                android:alpha="0.8"
+                android:singleLine="true"
+                android:text="[Flower]  with text"
+                android:textSize="15sp" />
 
             <Button
-                android:id="@+id/custom"
+                android:id="@+id/button_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:alpha="0.6"
-                android:text="Custom"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_marginTop="20dp"
+                android:alpha="0.8"
+                android:singleLine="true"
+                android:text="[Pie]  auto update"
+                android:textSize="15sp" />
 
+            <Button
+                android:id="@+id/button_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.8"
+                android:singleLine="true"
+                android:text="[Custom]  from res/drawable"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

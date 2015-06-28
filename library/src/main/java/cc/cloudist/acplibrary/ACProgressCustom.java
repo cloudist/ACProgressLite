@@ -1,88 +1,136 @@
 package cc.cloudist.acplibrary;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.RectF;
+import android.util.Log;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@SuppressLint("ViewConstructor")
-public class ACProgressCustom extends ACProgressBase {
+import cc.cloudist.acplibrary.views.CustomView;
+
+public final class ACProgressCustom extends ACProgressBaseDialog {
+
+    private static final int NO_TYPE = -1;
+    private static final int RESOURCE_TYPE = 0;
+    private static final int FILE_TYPE = 1;
+
+    private Builder mBuilder;
+    private CustomView mCustomView;
+
+    private Timer mTimer;
+    private int mSpinCount = 0;
+    private int mResourceCount;
 
     private List<Bitmap> mBitmaps;
-    private RectF mRect;
 
-    private float mSpeed;
-
-    private int mImageCount = 0;
-    private int mSpinCount = 0;
-    private int mCurrentIndex = 0;
-
-    public ACProgressCustom(Builder builder) {
-        super(builder.mContext, builder.mSizeRatio);
-
-        mRect = new RectF(0, 0, mSize, mSize);
-        mBitmaps = new ArrayList<>();
-
-        mSpeed = builder.mSpeed;
-
-        if (builder.mFilePaths.size() != 0) {
-            mImageCount = builder.mFilePaths.size();
-            for (int i = 0; i < mImageCount; i++) {
-                mBitmaps.add(BitmapFactory.decodeFile(builder.mFilePaths.get(i)));
+    private ACProgressCustom(Builder builder) {
+        super(builder.mContext);
+        mBuilder = builder;
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (mTimer != null) {
+                    mTimer.cancel();
+                    mTimer = null;
+                }
+                if (mBitmaps != null) {
+                    mBitmaps.clear();
+                    mBitmaps = null;
+                }
+                mSpinCount = 0;
+                mResourceCount = 0;
+                mCustomView = null;
             }
+        });
+    }
+
+    public void show() {
+        if (mBuilder.mType != NO_TYPE) {
+            if (mCustomView == null) {
+                mBitmaps = new ArrayList<>();
+                int size = (int) (getMinimumSideOfScreen(mBuilder.mContext) * mBuilder.mSizeRatio);
+                if (mBuilder.mType == RESOURCE_TYPE) {
+                    mResourceCount = mBuilder.mResources.size();
+                    for (int i = 0; i < mResourceCount; i++) {
+                        mBitmaps.add(BitmapFactory.decodeResource(mBuilder.mContext.getResources(), mBuilder.mResources.get(i)));
+                    }
+                } else {
+                    mResourceCount = mBuilder.mFilePaths.size();
+                    for (int i = 0; i < mResourceCount; i++) {
+                        mBitmaps.add(BitmapFactory.decodeFile(mBuilder.mFilePaths.get(i)));
+                    }
+                }
+                mCustomView = new CustomView(mBuilder.mContext, size, mBitmaps);
+            }
+            super.setContentView(mCustomView);
+            super.show();
+
+            long delay = (long) (1000 / mBuilder.mSpeed);
+            mTimer = new Timer();
+            mTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int result = mSpinCount % mResourceCount;
+                    mCustomView.updateIndex(result);
+                    if (result == 0) {
+                        mSpinCount = 1;
+                    } else {
+                        mSpinCount++;
+                    }
+                }
+            }, delay, delay);
         } else {
-            mImageCount = builder.mResources.size();
-            for (int i = 0; i < mImageCount; i++) {
-                mBitmaps.add(getBitmap(builder.mContext, builder.mResources.get(i)));
-            }
+            Log.d(ACProgressCustom.class.toString(), "you must assign the image source in Builder");
         }
-
     }
 
     public static class Builder {
+
         private Context mContext;
 
         private float mSizeRatio = 0.2f;
 
-        private List<Integer> mResources = new ArrayList<Integer>();
-        private List<String> mFilePaths = new ArrayList<String>();
+        private List<Integer> mResources = new ArrayList<>();
+        private List<String> mFilePaths = new ArrayList<>();
+
+        private int mType = NO_TYPE;
 
         private float mSpeed = 6.67f;
 
         public Builder(Context context) {
-            this.mContext = context;
+            mContext = context;
         }
 
         public Builder sizeRatio(float ratio) {
-            this.mSizeRatio = ratio;
+            mSizeRatio = ratio;
             return this;
         }
 
         public Builder speed(float speed) {
-            this.mSpeed = speed;
+            mSpeed = speed;
             return this;
         }
 
-        public Builder useImages(int... imageIds) {
-            mFilePaths.clear();
-            for (int id : imageIds) {
-                mResources.add(id);
+        public Builder useImages(Integer... imageIds) {
+            if (imageIds != null && imageIds.length != 0) {
+                mResources.clear();
+                Collections.addAll(mResources, imageIds);
+                mType = RESOURCE_TYPE;
             }
             return this;
         }
 
         public Builder useFiles(String... paths) {
-            mResources.clear();
-            for (String path : paths) {
-                mFilePaths.add(path);
+            if (paths != null && paths.length != 0) {
+                mFilePaths.clear();
+                Collections.addAll(mFilePaths, paths);
+                mType = FILE_TYPE;
             }
             return this;
         }
@@ -90,51 +138,6 @@ public class ACProgressCustom extends ACProgressBase {
         public ACProgressCustom build() {
             return new ACProgressCustom(this);
         }
-    }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(mSize, mSize);
     }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(mBitmaps.get(mCurrentIndex), null, mRect, null);
-    }
-
-    private Bitmap getBitmap(Context context, int resId) {
-        InputStream is = context.getResources().openRawResource(resId);
-        return BitmapFactory.decodeStream(is);
-    }
-
-    @Override
-    public void show() {
-        ACProgressCustom.super.show();
-        long delay = (long) (1000 / mSpeed);
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                int result = mSpinCount % mImageCount;
-                mCurrentIndex = mImageCount - 1 - result;
-                mHandler.sendEmptyMessage(0);
-                if (result == 0) {
-                    mSpinCount = 1;
-                } else {
-                    mSpinCount++;
-                }
-            }
-        }, delay, delay);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (mBitmaps != null) {
-            mBitmaps.clear();
-        }
-        mBitmaps = null;
-        mRect = null;
-    }
-
 }

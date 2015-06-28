@@ -1,143 +1,169 @@
 package cc.cloudist.acplibrary;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
+import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-@SuppressLint("ViewConstructor")
-public class ACProgressPie extends ACProgressBase {
+import cc.cloudist.acplibrary.views.PieView;
 
-    private RectF mBackgroundRect, mPieRect;
-    private Paint mBackgroundPaint, mRingPaint, mPiePaint;
+public class ACProgressPie extends ACProgressBaseDialog {
 
-    private float mBackgroundCornerRadius;
-    private float mRingBorderPadding;
+    private Builder mBuilder;
+    private PieView mPieView;
 
+    private Timer mTimer;
     private int mSpinCount = 0;
-    private int mCurrentFocusIndex = 0;
 
-    private int mSlides = 20;
+    private ACProgressPie(Builder builder) {
+        super(builder.mContext);
+        mBuilder = builder;
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (mTimer != null) {
+                    mTimer.cancel();
+                    mTimer = null;
+                }
+                mSpinCount = 0;
+                mPieView = null;
+            }
+        });
+    }
 
-    private float mSpeed;
+    public void show() {
+        if (mPieView == null) {
+            int size = (int) (getMinimumSideOfScreen(mBuilder.mContext) * mBuilder.mSizeRatio);
+            mPieView = new PieView(mBuilder.mContext, size, mBuilder.mBackgroundColor, mBuilder.mBackgroundAlpha, mBuilder.mBackgroundCornerRadius
+                    , mBuilder.mRingBorderPadding, mBuilder.mPieRingDistance
+                    , mBuilder.mRingThickness, mBuilder.mRingColor, mBuilder.mRingAlpha
+                    , mBuilder.mPieColor, mBuilder.mPieAlpha);
+        }
+        super.setContentView(mPieView);
+        super.show();
+        if (mBuilder.mUpdateType == ACProgressConstant.PIE_AUTO_UPDATE) {
+            long delay = (long) (1000 / mBuilder.mSpeed);
+            mTimer = new Timer();
+            mTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int result = mSpinCount % (mBuilder.mPieces + 1);
+                    mPieView.updateAngle(360f / mBuilder.mPieces * result);
+                    if (result == 0) {
+                        mSpinCount = 1;
+                    } else {
+                        mSpinCount++;
+                    }
+                }
+            }, delay, delay);
+        }
+    }
 
-    public ACProgressPie(Builder builder) {
-        super(builder.mContext, builder.mSizeRatio);
-
-        mBackgroundCornerRadius = builder.mBackgroundCornerRadius;
-        mRingBorderPadding = builder.mRingBorderPadding;
-        mSpeed = builder.mSpeed;
-
-        mBackgroundPaint = new Paint();
-        mBackgroundPaint.setAntiAlias(true);
-        mBackgroundPaint.setColor(builder.mBackgroundColor);
-        mBackgroundPaint.setAlpha((int) (builder.mBackgroundAlpha * 255));
-
-        mRingPaint = new Paint();
-        mRingPaint.setAntiAlias(true);
-        mRingPaint.setStrokeWidth(builder.mRingThickness);
-        mRingPaint.setColor(builder.mRingColor);
-        mRingPaint.setAlpha((int) (builder.mRingAlpha * 255));
-        mRingPaint.setStyle(Paint.Style.STROKE);
-
-        mPiePaint = new Paint();
-        mPiePaint.setAntiAlias(true);
-        mPiePaint.setColor(builder.mPieColor);
-        mPiePaint.setAlpha((int) (builder.mPieAlpha * 255));
-
-        float piePaddingValue = (builder.mRingBorderPadding + builder.mPieRingDistance) * mSize;
-        mBackgroundRect = new RectF(0, 0, mSize, mSize);
-        mPieRect = new RectF(0 + piePaddingValue / 2, 0 + piePaddingValue / 2, mSize - piePaddingValue / 2, mSize - piePaddingValue / 2);
-
+    public void setPiePercentage(float percentage) {
+        if (mBuilder.mUpdateType == ACProgressConstant.PIE_MANUAL_UPDATE && mPieView != null) {
+            mPieView.updateAngle(360 * percentage);
+        }
     }
 
     public static class Builder {
 
         private Context mContext;
 
-        private float mSizeRatio = 0.2f;
+        private float mSizeRatio = 0.25f;
 
         private int mBackgroundColor = Color.BLACK;
-        private float mBackgroundAlpha = 0.5f;
         private float mBackgroundCornerRadius = 20f;
+        private float mBackgroundAlpha = 0.5f;
 
         private int mRingColor = Color.WHITE;
         private float mRingAlpha = 0.9f;
+
         private float mRingBorderPadding = 0.2f;
         private int mRingThickness = 3;
 
         private int mPieColor = Color.WHITE;
         private float mPieAlpha = 0.9f;
+
         private float mPieRingDistance = 0.08f;
 
         private float mSpeed = 6.67f;
+        private int mPieces = 100;
+
+        private int mUpdateType = ACProgressConstant.PIE_AUTO_UPDATE;
 
         public Builder(Context context) {
-            this.mContext = context;
+            mContext = context;
+        }
+
+        public Builder sizeRatio(float ratio) {
+            mSizeRatio = ratio;
+            return this;
         }
 
         public Builder bgColor(int color) {
-            this.mBackgroundColor = color;
+            mBackgroundColor = color;
             return this;
         }
 
         public Builder bgAlpha(float alpha) {
-            this.mBackgroundAlpha = alpha;
+            mBackgroundAlpha = alpha;
             return this;
         }
 
         public Builder bgCornerRadius(float cornerRadius) {
-            this.mBackgroundCornerRadius = cornerRadius;
+            mBackgroundCornerRadius = cornerRadius;
             return this;
         }
 
         public Builder ringColor(int color) {
-            this.mRingColor = color;
+            mRingColor = color;
             return this;
         }
 
         public Builder ringAlpha(float alpha) {
-            this.mRingAlpha = alpha;
+            mRingAlpha = alpha;
             return this;
         }
 
         public Builder ringBorderPadding(float padding) {
-            this.mRingBorderPadding = padding;
+            mRingBorderPadding = padding;
             return this;
         }
 
         public Builder ringThickness(int thickness) {
-            this.mRingThickness = thickness;
+            mRingThickness = thickness;
             return this;
         }
 
         public Builder pieColor(int color) {
-            this.mPieColor = color;
+            mPieColor = color;
             return this;
         }
 
         public Builder pieAlpha(float alpha) {
-            this.mPieAlpha = alpha;
+            mPieAlpha = alpha;
             return this;
         }
 
         public Builder pieRingDistance(float distance) {
-            this.mPieRingDistance = distance;
+            mPieRingDistance = distance;
             return this;
         }
 
         public Builder speed(float speed) {
-            this.mSpeed = speed;
+            mSpeed = speed;
             return this;
         }
 
-        public Builder sizeRatio(float ratio) {
-            this.mSizeRatio = ratio;
+        public Builder pieces(int pieces) {
+            mPieces = pieces;
+            return this;
+        }
+
+        public Builder updateType(int updateType) {
+            mUpdateType = updateType;
             return this;
         }
 
@@ -146,54 +172,4 @@ public class ACProgressPie extends ACProgressBase {
         }
 
     }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(mSize, mSize);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawRoundRect(mBackgroundRect, mBackgroundCornerRadius, mBackgroundCornerRadius, mBackgroundPaint);
-        canvas.drawCircle(mSize / 2, mSize / 2, (mSize * (1 - mRingBorderPadding)) / 2, mRingPaint);
-        canvas.drawArc(mPieRect, -90, (float) (360.0 / (mSlides - 1) * mCurrentFocusIndex), true, mPiePaint);
-    }
-
-    @Override
-    public void show() {
-        ACProgressPie.super.show();
-        long delay = (long) (1000 / mSpeed);
-        final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                mCurrentFocusIndex = mSpinCount % mSlides;
-                mHandler.sendEmptyMessage(0);
-                if (mCurrentFocusIndex == 0) {
-                    mSpinCount = 1;
-                } else {
-                    mSpinCount++;
-                }
-            }
-        }, delay, delay);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        mBackgroundRect = null;
-        mPieRect = null;
-        mBackgroundPaint = null;
-        mRingPaint = null;
-        mPiePaint = null;
-    }
-
-    public void showAndUpdate(int percentage) {
-        mSlides = 100;
-        if (mCurrentFocusIndex >= 0 && mCurrentFocusIndex < 100) {
-            mCurrentFocusIndex = percentage;
-        }
-        invalidate();
-    }
-
 }

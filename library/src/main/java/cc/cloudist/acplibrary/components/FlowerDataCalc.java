@@ -22,11 +22,12 @@ public class FlowerDataCalc {
         }
     }
 
-    public List<PetalCoordinate> getSegmentsCoordinates(int rectSize, int outPadding, int inPadding, int segmentCount) {
+    public List<PetalCoordinate> getSegmentsCoordinates(int rectSize, int outPadding, int inPadding, int segmentCount, int finalWidth) {
 
         List<PetalCoordinate> coordinates = new ArrayList<>(segmentCount);
 
-        double center = rectSize / 2.0;
+        double centerY = rectSize / 2.0;
+        double centerX = finalWidth / 2.0;
         double outRadius = (rectSize - outPadding) / 2.0;
         double inRadius = inPadding / 2.0;
 
@@ -34,14 +35,14 @@ public class FlowerDataCalc {
             double xOutOffset = outRadius * mCosValues[i];
             double yOutOffset = outRadius * mSinValues[i];
 
-            int startX = (int) (center - xOutOffset);
-            int startY = (int) (center + yOutOffset);
+            int startX = (int) (centerX - xOutOffset);
+            int startY = (int) (centerY + yOutOffset);
 
             double xInOffset = inRadius * mCosValues[i];
             double yInOffset = inRadius * mSinValues[i];
 
-            int endX = (int) (center - xInOffset);
-            int endY = (int) (center + yInOffset);
+            int endX = (int) (centerX - xInOffset);
+            int endY = (int) (centerY + yInOffset);
 
             PetalCoordinate coordinate = new PetalCoordinate(startX, startY, endX, endY);
             coordinates.add(coordinate);
