@@ -6,6 +6,3 @@ android:
     - android-21
 
 jdk: oraclejdk7
-
-script:
-    - ./gradlew check --refresh-dependencies
