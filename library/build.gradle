@@ -27,76 +27,76 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
 }
 
-def siteUrl = 'https://github.com/Cloudist/ACProgressLite'
-def gitUrl = 'https://github.com/Cloudist/ACProgressLite.git'
-group = "cc.cloudist.acplibrary"
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                // Add your description here
-                name 'Android ACProgressLite Widget Library'
-                url siteUrl
-                // Set your license
-                licenses { // 许可类型，后面也有
-                    license {
-                        name 'The MIT License'
-                        url 'http://mit-license.org'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'cloudist'
-                        name 'cloudist'
-                        email 'd@cloudist.cc'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "ACProgressLite"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["MIT"]
-        publish = true
-    }
-}
+//def siteUrl = 'https://github.com/Cloudist/ACProgressLite'
+//def gitUrl = 'https://github.com/Cloudist/ACProgressLite.git'
+//group = "cc.cloudist.acplibrary"
+//install {
+//    repositories.mavenInstaller {
+//        // This generates POM.xml with proper parameters
+//        pom {
+//            project {
+//                packaging 'aar'
+//                // Add your description here
+//                name 'Android ACProgressLite Widget Library'
+//                url siteUrl
+//                // Set your license
+//                licenses { // 许可类型，后面也有
+//                    license {
+//                        name 'The MIT License'
+//                        url 'http://mit-license.org'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'cloudist'
+//                        name 'cloudist'
+//                        email 'd@cloudist.cc'
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
+//
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+//    configurations = ['archives']
+//    pkg {
+//        repo = "maven"
+//        name = "ACProgressLite"
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = ["MIT"]
+//        publish = true
+//    }
+//}
 
