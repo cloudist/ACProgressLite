@@ -1,5 +1,6 @@
 # ACProgressLite
 
+[![Build Status](https://api.travis-ci.org/Cloudist/ACProgressLite.svg?branch=master)](https://travis-ci.org/Cloudist/ACProgressLite)
 <br/>[English Version](https://github.com/Cloudist/ACProgressLite/blob/master/README.md) / 中文版本  
 
 Android 加载控件库，简洁、易用、可定制性强。用于快速实现类似 iOS 的 “加载中” 等弹出框。  

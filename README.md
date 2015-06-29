@@ -1,5 +1,6 @@
 # ACProgressLite
 
+[![Build Status](https://api.travis-ci.org/Cloudist/ACProgressLite.svg?branch=master)](https://travis-ci.org/Cloudist/ACProgressLite)
 <br/>English Version / [中文版本](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)  
 
 An Android loading widget library. Lite and easy to use, strong customizability. Can be used to implement 'iOS' like loading dialog efficiently.
