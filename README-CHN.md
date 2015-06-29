@@ -1,6 +1,6 @@
 # ACProgressLite
 
-[English Version]() / 中文版本  
+<br/>[English Version](https://github.com/Cloudist/ACProgressLite/blob/master/README.md) / 中文版本  
 
 Android 加载控件库，简洁、易用、可定制性强。用于快速实现类似 iOS 的 “加载中” 等弹出框。  
 类似于 iOS 中的 [MBProgressHUD](https://github.com/jdg/MBProgressHUD)  
@@ -9,13 +9,13 @@ Android 加载控件库，简洁、易用、可定制性强。用于快速实现
 
 **最小支持 SDK 版本:** API 9 ( Android 2.3 )
 
-![花瓣 不带文字]()
-![花瓣 带文字]()
-![圆饼]()
-![自定义]()
+![花瓣 不带文字](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_0.png)
+![花瓣 带文字](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_1.png)
+![圆饼](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_2.png)
+![自定义](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_3.png)
 
 
-[示例 APK 下载]()  
+[示例 APK 下载](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/sample.apk)  
 
 ## 当前版本
 * 1.2.1

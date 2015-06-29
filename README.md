@@ -1,6 +1,6 @@
 # ACProgressLite
 
-<br/>English Version / [中文版本]()  
+<br/>English Version / [中文版本](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)  
 
 An Android loading widget library. Lite and easy to use, strong customizability. Can be used to implement 'iOS' like loading dialog efficiently.
   
@@ -10,13 +10,13 @@ Similar to iOS [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 
 **Minimum SDK Version:** API 9 ( Android 2.3 )
 
-![Flower without text]()
-![Flower with text]()
-![Pie]()
-![Custom]()
+![Flower without text](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_0.png)
+![Flower with text](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_1.png)
+![Pie](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_2.png)
+![Custom](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/screenshot_3.png)
 
 
-[Sample APK download]()  
+[Sample APK download](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/intros/sample.apk)  
 
 ## Current Version
 * 1.2.1
