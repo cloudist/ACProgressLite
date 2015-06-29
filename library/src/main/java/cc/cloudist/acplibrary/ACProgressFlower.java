@@ -167,6 +167,11 @@ public class ACProgressFlower extends ACProgressBaseDialog {
             return this;
         }
 
+        public Builder textSize(int textSize) {
+            mTextSize = textSize;
+            return this;
+        }
+
         public Builder textColor(int textColor) {
             mTextColor = textColor;
             return this;

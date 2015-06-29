@@ -1,84 +1,131 @@
 # ACProgressLite
 
-A concise "iOS like" Android progress wheel and indicator library - "Android Cloudist Progress Lite"
+<br/>English Version / [中文版本]()  
 
-easy to use and config
+An Android loading widget library. Lite and easy to use, strong customizability. Can be used to implement 'iOS' like loading dialog efficiently.
+  
+Similar to iOS [MBProgressHUD](https://github.com/jdg/MBProgressHUD)  
 
-support API_INT >= 9
+**Keywords** *Progressbar, Progresswheel, HUD, Android, Loading*
 
-[Sample APK](https://github.com/Cloudist/ACProgressLite/raw/master/sample.apk)
+**Minimum SDK Version:** API 9 ( Android 2.3 )
 
-Suggestions and pull requests are welcomed. :-)
-
-[中文版](https://github.com/Cloudist/ACProgressLite/blob/master/README-CHN.md)
-
-## Version
-
-* 1.1.5
-
-## Installation
-
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.1.5'`
-
-* import module: "library" to your project
-
-## Sample And Usage
+![Flower without text]()
+![Flower with text]()
+![Pie]()
+![Custom]()
 
 
-![Flower](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl1.gif)
-![Pie](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl2.gif)
-![Custom](https://raw.githubusercontent.com/Cloudist/ACProgressLite/master/acpl3.gif)
+[Sample APK download]()  
 
-ACProgressLite needs to use **Builder** to create instances.
+## Current Version
+* 1.2.1
 
-* "Flower"
+## Usage
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1`
 
-`new ACProgressFlower.Builder(context).build().show();`
+## Sample Code
+* Flower
 
-* "Pie"
+```
+ACProgressFlower dialog = new ACProgressFlower.Builder(this)
+                        .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                        .themeColor(Color.WHITE)
+                        .text("Title is here)
+                        .fadeColor(Color.DKGRAY).build();
+dialog.show();
+```
 
-`new ACProgressPie.Builder(context).build().show();`
+* Pie
+
+```
+ACProgressPie dialog = new ACProgressPie.Builder(this)
+                     .ringColor(Color.WHITE)
+                     .pieColor(Color.WHITE)
+                     .updateType(ACProgressConstant.PIE_AUTO_UPDATE)
+                     .build();
+dialog.show();
+```
+
 * Custom
 
 ```
-ACProgressCustom.Builder builder = new ACProgressCustom.Builder(context);
-builder.useImages(?,?,?);
-builder.build().show();
+ACProgressCustom dialog = new ACProgressCustom.Builder(this)
+                        .useImages(R.drawable.p0, R.drawable.p1, R.drawable.p2, R.drawable.p3)
+                        .build();
+dialog.show();
 ```
 
-### **Some frequently-used configurations：**
-#### *General*
-* **sizeRatio**: The Size Ratio of the background, length of the smaller edge of screen is 1. This is a float value which small than 1. (Looks like a percentage value, like 0.5f)
-* **speed**: The number of the frames per second.
-* **setCancelable(boolean)**: Whether this progress can be dismissed by click the outside area.
+## Configuration
+&emsp;3 types of dialog are avaliable now:<br/>  
+&emsp;Here are some general configurations:
+1.  `sizeRatio` size of the background. The value is float and less than 1f. It means the ratio of "real size / the smaller edge length of the screen". aka:  
+background length = the smaller edge length of the screen * sizeRatio  
+> Pay attention to the situation of "Flower type with text", it will be explained int next scetion.
 
-#### *"Flower"*
-* **direction**: Direction of rotation *DIRECT_CLOCKWISE or DIRECT_ANTI_CLOCKWISE*
-* **themeColor**: Start color
-* **fadeColor**: End color
-* **petalCount**: Petals count
-* **borderPadding**：Distance between out-edge of petals and edge of background / background's side length
-* **centerPadding**：Distance between inner-edge of petals and center of background / background's side length
+1.  `bgColor` Color of background, int value.
+1.  `bgAlpha` Transparency of background. 0 is full transparency, 1 is opaque. All alpha configurations are similar.
+1.  `bgCornerRadius` Radius of four corners of the background.
 
-#### *"Pie"*
-* **ringColor**: Ring's color
-* **pieColor**: Pie's color
-* **ringBorderPadding**: Distance between ring and edge of background / background's side length
-* **pieRingDistance**: Distance between out-edge of pie and ring / background's side length
+*bgColor, bgAlpha, bgCornerRadius are not available for custom type*
 
-#### *Custom*
-* **useImages**: Use drawable resources as the image source, parameters are resource ids.
-* **useFiles**: Use local image files as the image source, parameters are files' paths.
 
-### **Notice**
-* Before submitting any issue, try **Clean** the project.
-* If you use version before 1.1.0 (1.1.0 is not included), you may get a gradle error, you can add `tools:ignore="label"` under `application` label in Manifest to solve it.
-* Do not use `useImages` and `useFiles' at the same time, or only the last configuration is avaliable.
-* All configurations works fine by default. If you want to change the default, please tweak different configuration carefully to make the progress looks perfectly.
-* Calling `dismiss()` when the progress is not on the screen is not a good practice.
-* Do not call an object's `show()` after `dismiss()`, you should always create a new instance before calling `show()`, or you'll get a `NullPointerException`. *This will be improved in future versions*.
+* **Flower**  
+Most commonly used type. Support adding text title.
 
+**Configuration**|**Description**
+:------|:------------------
+themeColor|Start color of petals.
+borderPadding|Distance between outer edge of petals and edge of background / length of the edge of background. (length of the edge of background is based on sizeRatio)
+centerPadding|Distance between inner edge of petals and center of background / length of the edge of background. (length of the edge of background is based on sizeRatio)
+fadeColor|End color of petals.
+petalCount|Number of petals.
+petalAlpha|Transparency of petals.
+petalThickness|Thickness of petals.
+direction|Direction of petals' rotation, `ACProgressConstant.DIRECT_CLOCKWISE` or `DIRECT_ANTI_CLOCKWISE`.
+speed|Speed of petals' rotation, frames count in each second.
+text|Text, shown under petals.
+textSize|Text's size.
+textColor|Text's color.
+textAlpha|Text's transparency.
+textMarginTop|Distance between text and petals.
+isTextExpandWidth|Whether expand the background width to equal the height when a text title is set. If you set a text title, the background's height will become longer because of making room for text. If this value is `true`, the petals are still drawn by sizeRatio, but petals will be horizontally centered as the background's width is expanded to equal the height; if this value is `false`, the background will be rectangle with different width and height.
+
+* **Pie**  
+Suitable for display progress. Manual-update and auto-update are supported.
+
+**Configuration**|**Description**
+:------|:------------------
+ringColor|Color of ring.
+ringAlpha|Transparency of ring.
+ringThickness|Thickness of ring.
+ringBorderPadding|Distance between ring and edge of background / length of the edge of background.
+pieColor|Color of pie.
+pieAlpha|Transparency of pie.
+pieRingDistance|Distance between ring and pie / length of the edge of background.
+updateType|Update type. `PIE_AUTO_UPDATE` or `PIE_MANUAL_UPDATE`. Manually update with method `setPiePercentage()`.
+speed|frames count in each second with auto-update type.
+pieces|pieces of pie with auto-update type.
+
+
+* **Custom**  
+like GIF, support res/drawable resources ids array or image files array as data source.
+
+**Configuration**|**Description**
+:------|:------------------
+useImages|resources ids array.
+useFiles|image files array.
+speed|frames count in each second.
+
+## Notice
+* Try to **clean** the project first when you come across any problem.
+* use `setCanceledOnTouchOutside(true)` in version 1.2.0+ when you want to dismiss the dialog when touch outside.
+* Most of the methods in `Dialog` are supported.
+* We strongly suggest you to use version above 1.2.0
+* If you use version before 1.1.0 (without 1.1.0),and gradle error occured, you can add  `tools:ignore="label` under tag `application` in Manifest to solve it.
+* Don not try to use `useImages` and `useFiles` at the same time, or only the last calling is avaliable.
+* **Default configuration can perform well under most situations. If you really want to do customization, please tweak carefully to get best visual performance.**
+* I'm not a native English speaker, there may be some grammar mistakes in this file. Suggestions and corrections are welcome.
 
 ## License
-
 * [MIT License](http://mit-license.org/)
