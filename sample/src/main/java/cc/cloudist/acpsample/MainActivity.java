@@ -29,7 +29,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_1: {
-                ACProgressFlower dialog = new ACProgressFlower.Builder(this)
+                ACProgressFlower dialog = new ACProgressFlower.Builder(this, R.style.NonDimACProgressDialog)
                         .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                         .themeColor(Color.WHITE)
                         .fadeColor(Color.DKGRAY).build();
