@@ -18,7 +18,7 @@ public class ACProgressFlower extends ACProgressBaseDialog {
     private Timer mTimer;
 
     private ACProgressFlower(Builder builder) {
-        super(builder.mContext);
+        super(builder.mContext, builder.mTheme);
         mBuilder = builder;
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -68,6 +68,8 @@ public class ACProgressFlower extends ACProgressBaseDialog {
 
         private Context mContext;
 
+        private int mTheme = R.style.ACPLDialog;
+
         private float mSizeRatio = 0.25f;
         private float mBorderPadding = 0.55f;
         private float mCenterPadding = 0.27f;
@@ -95,6 +97,11 @@ public class ACProgressFlower extends ACProgressBaseDialog {
 
         public Builder(Context context) {
             mContext = context;
+        }
+
+        public Builder(Context context, int theme) {
+            mContext = context;
+            mTheme = theme;
         }
 
         public Builder sizeRatio(float ratio) {

@@ -17,6 +17,11 @@ public abstract class ACProgressBaseDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
+    protected ACProgressBaseDialog(Context context, int theme) {
+        super(context, theme);
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+    }
+
     protected int getMinimumSideOfScreen(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
