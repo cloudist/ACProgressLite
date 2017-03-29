@@ -22,7 +22,7 @@ Android 加载控件库，简洁、易用、可定制性强。用于快速实现
 * 1.2.1
 
 ## 使用方式
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1`
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1'`
 
 ## 示例代码
 * 花瓣类型

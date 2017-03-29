@@ -23,7 +23,7 @@ Similar to iOS [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 * 1.2.1
 
 ## Usage
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1`
+* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1'`
 
 ## Sample Code
 * Flower
