@@ -32,7 +32,7 @@ Similar to iOS [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 ACProgressFlower dialog = new ACProgressFlower.Builder(this)
                         .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                         .themeColor(Color.WHITE)
-                        .text("Title is here)
+                        .text("Title is here")
                         .fadeColor(Color.DKGRAY).build();
 dialog.show();
 ```
