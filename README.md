@@ -23,7 +23,17 @@ Similar to iOS [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 * 1.2.1
 
 ## Usage
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1'`
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }       
+        ...
+    }
+}
+```
+```
+implementation 'com.github.chenzhenlindx:ACProgressLite:1.2.2'
+```
 
 ## Sample Code
 * Flower
