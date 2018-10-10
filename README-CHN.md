@@ -22,7 +22,19 @@ Android 加载控件库，简洁、易用、可定制性强。用于快速实现
 * 1.2.1
 
 ## 使用方式
-* gradle: `compile 'cc.cloudist.acplibrary:library:1.2.1'`
+1. 在工程目录下添加maven
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }       
+        ...
+    }
+}
+```
+2. module下添加gradle依赖
+```
+implementation 'com.github.chenzhenlindx:ACProgressLite:1.2.2'
+```
 
 ## 示例代码
 * 花瓣类型
