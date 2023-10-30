@@ -17,7 +17,7 @@ public class ACProgressFlower extends ACProgressBaseDialog {
     private int mSpinCount = 0;
     private Timer mTimer;
 
-    private ACProgressFlower(Builder builder) {
+    public ACProgressFlower(Builder builder) {
         super(builder.mContext, builder.mTheme);
         mBuilder = builder;
         setOnDismissListener(new OnDismissListener() {
